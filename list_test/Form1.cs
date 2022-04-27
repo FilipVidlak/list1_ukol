@@ -17,12 +17,7 @@ namespace list_test
             InitializeComponent();
         } 
         List<int> seznamcisel = new List<int>();
-        List<Pacient> seznampacientu = new List<Pacient>();
         Random rng = new Random();
-        bool JePrvocislo(int znak)
-        {
-            
-        }
         public void Vypis()
         {
             MessageBox.Show("První pozice maximální čísla: " + seznamcisel.IndexOf(seznamcisel.Max()));
@@ -31,40 +26,43 @@ namespace list_test
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < int.Parse(textBox1.Text); i++)
+            try
             {
-                int znak = rng.Next(19, 30);
-                seznamcisel.Add(znak);
+                for (int i = 0; i < int.Parse(textBox1.Text); i++)
+                {
+                    int znak = rng.Next(19, 30);
+                    seznamcisel.Distinct().ToList();
+                    seznamcisel.Add(znak);
+                    button2.Enabled = true;
+                }
+                //vypsat
+                foreach (int znak in seznamcisel)
+                {
+                    listBox1.Items.Add(znak);
+                }
+                Vypis();
             }
-            //vypsat
-            foreach (int znak in seznamcisel)
-            {
-                seznamcisel.Distinct().ToList();
-                listBox1.Items.Add(znak);
-            }
-            Vypis();
+            catch { MessageBox.Show("Zadej správnou hodnotu!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
            
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-                //pres string
-                /*   foreach (int znak in seznamcisel)
-                   {
-                       seznamcisel.Sort();
-                       MessageBox.Show("Seřazeno", "Done", znak.ToString());
-                   }
-                */
-                /* seznamcisel.Sort();
-                 string lol = string.Join(Environment.NewLine, seznamcisel.ToArray());
-                 MessageBox.Show("Seřazeno", "Done", lol);
-                */
                 string vystup = "";
                 foreach (int znak in seznamcisel)
                 {
-                    vystup += znak + " ";
+                bool lol = true;
+                if (znak > 0)
+                {
+                    for (int j = 2; j <= znak / 2 && lol; j++)
+                    {
+                        if (znak % j == 0) { lol = false; }
+                    }
+                    if (lol) { vystup += znak + " "; }
                 }
-                MessageBox.Show(vystup);
+               
+                }
+            MessageBox.Show("Prvočísla jsou: " + vystup,  "Prvočíslo", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
       
     }
