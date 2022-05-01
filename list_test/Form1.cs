@@ -15,27 +15,29 @@ namespace list_test
         public Form1()
         {
             InitializeComponent();
-        } 
+        }
         List<int> seznamcisel = new List<int>();
         Random rng = new Random();
-        public void Vypis()
+        private void Vypis()
         {
-            MessageBox.Show("První pozice maximální čísla: " + seznamcisel.IndexOf(seznamcisel.Max()));
-            MessageBox.Show("Poslední pozice maximální čísla: " + seznamcisel.LastIndexOf(seznamcisel.Max()));
+            int x = seznamcisel.IndexOf(seznamcisel.Max()) + 1;
+            int y = seznamcisel.LastIndexOf(seznamcisel.Max()) + 1;
+            MessageBox.Show("První pozice maximální čísla: " + x) ;
+            MessageBox.Show("Poslední pozice maximální čísla: " + y);
             MessageBox.Show("Průměr všech vygenerovaných čísel: " + seznamcisel.Average().ToString());
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             try
             {
                 for (int i = 0; i < int.Parse(textBox1.Text); i++)
                 {
-                    int znak = rng.Next(19, 30);
-                    seznamcisel.Distinct().ToList();
+                    int znak = rng.Next(19, 31);
+                    seznamcisel.Distinct();
                     seznamcisel.Add(znak);
                     button2.Enabled = true;
                 }
-                //vypsat
                 foreach (int znak in seznamcisel)
                 {
                     listBox1.Items.Add(znak);
@@ -43,14 +45,17 @@ namespace list_test
                 Vypis();
             }
             catch { MessageBox.Show("Zadej správnou hodnotu!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
-           
+
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-                string vystup = "";
-                foreach (int znak in seznamcisel)
+            try { 
+            string vystup = "  ";
+              
+                foreach (int znak in listBox1.Items)
                 {
+                listBox2.Items.Add(znak);
                 bool lol = true;
                 if (znak > 0)
                 {
@@ -58,12 +63,11 @@ namespace list_test
                     {
                         if (znak % j == 0) { lol = false; }
                     }
-                    if (lol) { vystup += znak + " "; }
+                    if (lol) { vystup += znak; }
                 }
-               
-                }
-            MessageBox.Show("Prvočísla jsou: " + vystup,  "Prvočíslo", MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
-      
+            } catch { MessageBox.Show("Nenašlo se žádné prvočíslo", "Error", MessageBoxButtons.OK,MessageBoxIcon.Warning); }
+                       MessageBox.Show("Prvočísla jsou: " + vystup, "Prvočíslo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
