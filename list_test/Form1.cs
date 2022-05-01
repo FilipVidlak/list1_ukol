@@ -34,7 +34,6 @@ namespace list_test
                 for (int i = 0; i < int.Parse(textBox1.Text); i++)
                 {
                     int znak = rng.Next(19, 31);
-                    seznamcisel.Distinct();
                     seznamcisel.Add(znak);
                     button2.Enabled = true;
                 }
@@ -50,24 +49,26 @@ namespace list_test
 
         private void button2_Click(object sender, EventArgs e)
         {
-            try { 
-            string vystup = "  ";
-              
-                foreach (int znak in listBox1.Items)
+            try
+            {
+                string vystup = "";
+                seznamcisel.Distinct();
+                foreach (int znak in seznamcisel)
                 {
-                listBox2.Items.Add(znak);
-                bool lol = true;
-                if (znak > 0)
-                {
-                    for (int j = 2; j <= znak / 2 && lol; j++)
+                    listBox2.Items.Add(znak);
+                    bool lol = true;
+                    if (znak > 0)
                     {
-                        if (znak % j == 0) { lol = false; }
+                        for (int j = 2; j <= znak / 2 && lol; j++)
+                        {
+                            if (znak % j == 0) { lol = false; }
+                        }
+                        if (lol) { vystup += znak + " "; }
                     }
-                    if (lol) { vystup += znak; }
                 }
+                MessageBox.Show("Prvočísla jsou: " + vystup, "Prvočíslo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            } catch { MessageBox.Show("Nenašlo se žádné prvočíslo", "Error", MessageBoxButtons.OK,MessageBoxIcon.Warning); }
-                       MessageBox.Show("Prvočísla jsou: " + vystup, "Prvočíslo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            catch { MessageBox.Show("Nenašlo se žádné prvočíslo", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
     }
 }
