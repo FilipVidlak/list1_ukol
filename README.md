@@ -1,1 +1,1 @@
-Zatím nedodělaný
+Nedodělaná duplikace
